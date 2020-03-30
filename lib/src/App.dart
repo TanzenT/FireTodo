@@ -29,17 +29,31 @@ class _AppState extends State<App> with SingleTickerProviderStateMixin {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        brightness: Brightness.dark, // for white status bar text
+        brightness: MediaQuery.of(context).platformBrightness == Brightness.dark
+            ? Brightness.dark
+            : Brightness.light, // for white status bar text
+
         // this is for AppBar Title
         elevation: 0.0,
         title: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Icon(MaterialCommunityIcons.fire),
+            Icon(MaterialCommunityIcons.fire,
+                color:
+                    MediaQuery.of(context).platformBrightness == Brightness.dark
+                        ? Colors.white
+                        : Colors.black),
             Padding(
               padding: EdgeInsets.only(right: 5),
             ),
-            Text('Fire Todo')
+            Text(
+              'Fire Todo',
+              style: TextStyle(
+                  color: MediaQuery.of(context).platformBrightness ==
+                          Brightness.dark
+                      ? Colors.white
+                      : Colors.black),
+            ),
           ],
         ),
       ),
@@ -51,15 +65,12 @@ class _AppState extends State<App> with SingleTickerProviderStateMixin {
           tabs: <Tab>[
             new Tab(
               icon: new Icon(Icons.add),
-              text: '추가',
             ),
             new Tab(
               icon: new Icon(Icons.timer),
-              text: '알림 있는 할 일',
             ),
             new Tab(
               icon: new Icon(Icons.timer_off),
-              text: '알림 없는 할 일',
             ),
           ],
         ),
